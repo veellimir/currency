@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article>
+    <div class="container mt-5">
+        <h1 class="text-center">Текущий курс USD к RUB: {{ current_rate }}</h1>
+
+        <h2 class="mt-4">История курсов:</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Дата и время запроса</th>
+                    <th scope="col">Курс</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in history %}
+                <tr>
+                    <td>{{ entry.timestamp|date:"d-m-Y H:i:s" }}</td>
+                    <td>{{ entry.rate }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2" class="text-center">Нет данных о курсах.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</article>
+{% endblock %}
